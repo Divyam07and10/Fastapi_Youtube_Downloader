@@ -206,7 +206,7 @@ Fastapi_Youtube_Downloader/
 ## 📦 Installation
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/youtube-downloader-api.git
+git clone https://github.com/Divyam07and10/Fastapi_Youtube_Downloader.git
 cd Fastapi_Youtube_Downloader
 ```
 
