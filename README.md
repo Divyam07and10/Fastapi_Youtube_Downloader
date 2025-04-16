@@ -270,9 +270,6 @@ Crafted with ❤️ using FastAPI, yt-dlp, and Python.
 
 ---
 
-This is the full content for your `README.md` file. It explains the purpose of the project, installation instructions, how to use it, and gives details about the available endpoints.
-
-
 # FastAPI YouTube Downloader
 
 A full-featured, YouTube Downloader API built using FastAPI. It supports video/audio downloads, metadata extraction, background processing via Celery, Redis-based rate limiting, and more.
