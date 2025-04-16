@@ -271,3 +271,260 @@ Crafted with ❤️ using FastAPI, yt-dlp, and Python.
 ---
 
 This is the full content for your `README.md` file. It explains the purpose of the project, installation instructions, how to use it, and gives details about the available endpoints.
+
+
+Here's the updated README.md reflecting the new project structure and codebase:
+
+```markdown
+# 🎥 YouTube Downloader API – FastAPI Based REST Service
+
+A **production-grade RESTful API** built with **FastAPI** that enables users to download YouTube videos or extract audio files in different formats and qualities. Implements rate limiting, background processing, and Redis caching. Built with modular architecture for scalability.
+
+---
+
+## 🌐 Live Status
+> ❗ Not deployed yet — Local-only in current phase.
+
+---
+
+## 🧽 Table of Contents
+- [🔍 Project Overview](#-project-overview)
+- [⚙️ Tech Stack](#-tech-stack)
+- [🚀 Features Implemented](#-features-implemented)
+- [🌤 API Endpoints](#-api-endpoints)
+- [🛠 How It Works](#-how-it-works)
+- [💾 File Storage](#-file-storage)
+- [📊 Planned Enhancements](#-planned-enhancements)
+- [📁 Project Structure](#-project-structure)
+- [📦 Installation](#-installation)
+- [🧺 Example Usage (curl)](#-example-curl-requests)
+- [🔐 Security Measures](#-security-measures)
+- [📝 License & Contribution](#-license--contribution)
+
+---
+
+## 🔍 Project Overview
+This FastAPI-based application provides endpoints to:
+- Download Videos/Audio in multiple formats (mp4, mkv, mp3, webm)
+- Select video quality (360p to 4K)
+- Rate limiting (100 downloads/day per IP)
+- Redis-backed request tracking
+- PostgreSQL database for download history
+- Metadata caching with LRU strategy
+- Celery background task processing
+- API key authentication
+- Automatic fallback (yt-dlp → pytube)
+
+**Planned Enhancements:**
+- Docker deployment
+- AWS S3 storage integration
+- OAuth2 authentication
+- Prometheus monitoring
+- Video trimming/stitching
+- Playlist support
+
+---
+
+## ⚙️ Tech Stack
+| Layer                 | Tech / Tool                              |
+|-----------------------|------------------------------------------|
+| Backend Framework     | FastAPI                                  |
+| Database              | PostgreSQL                               |
+| Cache/Queue           | Redis                                    |
+| Task Queue            | Celery                                   |
+| Video Processing      | yt-dlp + pytube (fallback)               |
+| Auth                  | API Key Authentication                   |
+| Rate Limiting         | Redis-based counter                      |
+| File Storage          | Local storage (downloads/)               |
+| Validation            | Pydantic models                          |
+| ORM                   | SQLAlchemy Async                         |
+| Monitoring            | Built-in metrics (Planned: Prometheus)   |
+
+---
+
+## 🚀 Features Implemented
+### ✅ Core Features
+- YouTube URL validation & sanitization
+- Rate limiting (100/day per IP)
+- Background processing with Celery
+- Download history tracking
+- Metadata caching (1 hour TTL)
+- API key authentication
+- Multiple format/quality support
+- Automatic fallback mechanism
+- Redis-backed rate limiting
+- Async database operations
+
+### ✅ Safety Features
+- Input validation for all endpoints
+- Path sanitization for file storage
+- Environment-based configuration
+- Secure credential handling (.env)
+- SQL injection prevention
+- Rate limiting abuse protection
+
+---
+
+## 🌤 API Endpoints
+| Endpoint              | Method | Description                     |
+|-----------------------|--------|---------------------------------|
+| `/download`           | POST   | Initiate video/audio download   |
+| `/metadata`           | GET    | Get video metadata              |
+| `/history`            | GET    | View download history           |
+| `/metrics`            | GET    | System metrics (Planned)        |
+
+**Sample Download Request:**
+```json
+{
+  "url": "https://www.youtube.com/watch?v=abcd1234",
+  "format": "mp4",
+  "quality": "720p"
+}
+```
+
+**Sample Metadata Response:**
+```json
+{
+  "title": "Sample Video",
+  "duration": "5m30s", 
+  "views": 123456,
+  "channel": "Sample Channel",
+  "thumbnail_url": "https://img.youtube.com/vi/abcd1234/hqdefault.jpg",
+  "published_date": "2024-04-03"
+}
+```
+
+---
+
+## 📁 Project Structure
+```bash
+Fastapi_Youtube_Downloader/
+├── app/                   # Core application logic
+│   ├── api/               # API endpoint handlers
+│   │   ├── download.py    # Download routes
+│   │   ├── history.py     # History routes
+│   │   └── metadata.py    # Metadata routes
+│   ├── core/              # Configuration & utilities
+│   │   ├── config.py      # Environment configuration
+│   │   ├── rate_limit.py  # Redis rate limiting
+│   │   └── security.py    # API key validation
+│   ├── db/                # Database configuration
+│   │   ├── database.py    # Async DB connection
+│   │   └── models.py      # SQLAlchemy models
+│   ├── schemas/           # Pydantic models
+│   ├── services/          # Business logic
+│   ├── tasks/             # Celery tasks
+│   └── utils/             # Helpers & validators
+├── downloads/             # Downloaded files storage
+├── requirements.txt       # Dependency list
+├── .env                   # Environment variables
+├── README.md              # Project documentation
+└── celery_worker.py       # Celery entry point
+```
+
+---
+
+## 📦 Installation
+
+### 1. Prerequisites
+- Python 3.10+
+- Redis server
+- PostgreSQL
+- FFmpeg
+
+### 2. Setup Environment
+```bash
+git clone https://github.com/Divyam07and10/Fastapi_Youtube_Downloader.git
+cd Fastapi_Youtube_Downloader
+python -m venv yt
+source yt/bin/activate  # Linux/MacOS
+# .\yt\Scripts\activate  # Windows
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configuration
+1. Create `.env` file from `.env.example`
+2. Set database credentials and API keys
+3. Configure Redis connection details
+
+### 5. Database Setup
+```bash
+alembic upgrade head  # After setting up Alembic (planned)
+```
+
+### 6. Run Application
+```bash
+# Start FastAPI
+uvicorn app.main:app --reload
+
+# Start Celery worker
+celery -A app.tasks.worker.celery_app worker --loglevel=info
+```
+
+---
+
+## 🔐 Security Features
+- API key authentication for all endpoints
+- Redis-based rate limiting (100 requests/day/IP)
+- Input sanitization for URLs and file paths
+- Environment-separated credentials
+- Async database operations
+- Request validation middleware
+- HTTPS support (Planned)
+- JWT token authentication (Planned)
+
+---
+
+## 🧺 Example Requests
+**Download Video:**
+```bash
+curl -X POST http://localhost:8000/download \
+  -H "X-API-Key: your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://youtu.be/dQw4w9WgXcQ", "format": "mp4", "quality": "1080p"}'
+```
+
+**Get Metadata:**
+```bash
+curl -H "X-API-Key: your_api_key" \
+  "http://localhost:8000/metadata?url=https://youtu.be/dQw4w9WgXcQ"
+```
+
+---
+
+## 📜 License
+MIT License - See [LICENSE](LICENSE) for details.
+
+---
+
+## 👨💻 Roadmap
+- [ ] Docker containerization
+- [ ] AWS S3 storage integration
+- [ ] Prometheus/Grafana monitoring
+- [ ] OAuth2 authentication
+- [ ] Video trimming capabilities
+- [ ] Playlist download support
+
+---
+
+## 🤝 Contribution
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/foo`)
+3. Commit changes (`git commit -am 'Add foo'`)
+4. Push to branch (`git push origin feature/foo`)
+5. Create new Pull Request
+
+```
+
+This updated README:
+1. Matches the actual project structure
+2. Reflects current implementation status
+3. Provides accurate setup instructions
+4. Shows working API examples
+5. Maintains consistency with codebase features
+6. Highlights security measures
+7. Includes proper environment setup guidance
