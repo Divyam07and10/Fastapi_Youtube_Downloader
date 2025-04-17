@@ -1,6 +1,6 @@
 # FastAPI YouTube Downloader
 
-A full-featured, production-ready YouTube Downloader API built using FastAPI. It supports video/audio downloads, metadata extraction, playlist support, background processing via Celery, Redis-based rate limiting, and more.
+A full-featured, YouTube Downloader API built using FastAPI. It supports video/audio downloads, metadata extraction, playlist support, background processing via Celery, Redis-based rate limiting, and more.
 
 ---
 
@@ -9,8 +9,7 @@ A full-featured, production-ready YouTube Downloader API built using FastAPI. It
 - ✅ Download video/audio from YouTube via `/download`
 - ✅ Extract video/playlist metadata via `/metadata`
 - ✅ Retrieve download history via `/history`
-- ✅ Multiple format and quality support (`mp4`, `webm`, `mp3`, etc.)
-- ✅ Playlist ZIP download support
+- ✅ Supports video (mp4, webm, mkv) and audio (mp3) formats
 - ✅ Metadata caching
 - ✅ IP-based rate limiting (10 downloads/day/IP via Redis)
 - ✅ Background task processing with Celery
@@ -92,7 +91,7 @@ x-api-key: your_api_key_here
 
 ## 📦 Rate Limiting
 
-Each IP is limited to **10 downloads per day**. Tracked via Redis.
+Each IP is limited to **100 downloads per day**. Tracked via Redis.
 
 ---
 
