@@ -170,7 +170,7 @@ uvicorn app.main:app --reload
 
 > App runs on http://localhost:8000
 
-### 5. **Run FastAPI app on any alernative port**
+### 6. **Run FastAPI app on any alernative port**
 
 ```bash
 uvicorn app.main:app --reload --port port_number
