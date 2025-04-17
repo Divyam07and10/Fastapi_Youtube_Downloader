@@ -139,43 +139,37 @@ Using async SQLAlchemy with PostgreSQL.
 
 ## 🛠 Setup & Run
 
-1. **Install dependencies**
+### 1. **Install dependencies**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-2. **Start Redis**
+### 2. **Setup virtual environment**
+```bash
+python -m venv .venv
+source .venv/bin/activate  # on Windows use `.venv\Scripts\activate`
+```
+
+### 3. **Start Redis**
 
 ```bash
 redis-server
 ```
 
-3. **Run Celery worker**
+### 4. **Run Celery worker**
 
 ```bash
 celery -A app.tasks.worker.celery worker --loglevel=info
 ```
 
-4. **Run FastAPI app**
+### 5. **Run FastAPI app**
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-5. **Set up PostgreSQL** and create tables:
-
-```bash
-alembic upgrade head
-```
-
-6. **Create **``** file**
-
-```
-API_KEY=your_api_key
-DATABASE_URL=postgresql+asyncpg://user:pass@localhost/dbname
-REDIS_URL=redis://localhost:6379
-```
+> App runs on http://localhost:8000
 
 ---
 
