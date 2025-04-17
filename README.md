@@ -1,6 +1,6 @@
 # 🎥 YouTube Downloader API – FastAPI Based REST Service
 
-A **production-grade RESTful API** built with **FastAPI** that enables users to download YouTube videos or extract audio files in different formats and qualities. It supports automatic fallback mechanisms, background task handling, and metadata retrieval. The project is built to scale with plans for advanced features like Celery task queues, Docker deployment, OAuth2 authentication, rate limiting, logging, and cloud storage support.
+A **RESTful API** built with **FastAPI** that enables users to download YouTube videos or extract audio files in different formats and qualities. It supports automatic fallback mechanisms, background task handling, and metadata retrieval. The project is built to scale with plans for advanced features like Celery task queues, Docker deployment, OAuth2 authentication, rate limiting, logging, and cloud storage support.
 
 ---
 
