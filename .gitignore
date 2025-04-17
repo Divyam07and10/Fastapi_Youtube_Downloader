@@ -1,1 +1,5 @@
-
+yt/
+downloads/
+__pycache__/
+backup/
+.env
