@@ -170,6 +170,15 @@ uvicorn app.main:app --reload
 
 > App runs on http://localhost:8000
 
+### 5. **Run FastAPI app on any alernative port**
+
+```bash
+uvicorn app.main:app --reload --port port_number
+like for eg, uvicorn app.main:app --reload --port 8001
+```
+
+> App runs on http://localhost:8001 in the example taken
+
 ---
 
 ## ✅ Example cURL
