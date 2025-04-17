@@ -33,7 +33,6 @@ A full-featured, YouTube Downloader API built using FastAPI. It supports video/a
 ## 📂 Directory Structure
 
 ```bash
-You said:
 Fastapi_Youtube_Downloader/
 ├── app/  # Contains FastAPI application code
 │   ├── api/  # Handles API endpoints for download, history, and metadata
