@@ -15,7 +15,7 @@ async def get_metadata(
     db: AsyncSession = Depends(get_db)
 ):
     if not is_valid_youtube_url(url):
-        raise HTTPException(status_code=400, detail="Invalid YouTube URL format.")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid YouTube URL format.")
 
     stmt = select(VideoMetadata).filter_by(url=url)
     result = await db.execute(stmt)

@@ -26,7 +26,7 @@ async def download_video(
     req: Request = None
 ):
     if not is_valid_youtube_url(request.url):
-        raise HTTPException(status_code=400, detail="Invalid YouTube URL format.")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid YouTube URL format.")
     
     if request.format not in ALLOWED_FORMATS:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Unsupported format. Allowed: {ALLOWED_FORMATS}")
