@@ -1,4 +1,4 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 from redis import Redis
 from datetime import datetime
 from app.core.config import MAX_DOWNLOADS_PER_DAY, RATE_LIMIT_EXPIRY, REDIS_URL
@@ -23,7 +23,7 @@ async def check_rate_limit(ip: str):
 
     if count >= max_limit:
         raise HTTPException(
-            status_code=429,
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
             detail=f"Download limit reached for today. Max {max_limit} per IP."
         )
 
